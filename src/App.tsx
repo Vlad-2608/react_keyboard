@@ -1,72 +1,32 @@
 import React from 'react';
 
-// interface State {
-//   pressedKey: string;
-// }
-
-// export class App extends React.Component<{}, State> {
-//   setState(_arg0: { pressedKey: string }) {
-//     throw new Error('Method not implemented.');
-//   }
-
-//   state: Readonly<State> = {
-//     pressedKey: 'Nothing was pressed yet',
-//   };
-
-//   handleKeyUp = (event: KeyboardEvent) => {
-//     this.setState({ pressedKey: `The last pressed key is [${event.key}]` });
-//   };
-
-//   componentDidMount(): void {
-//     document.addEventListener('keyup', this.handleKeyUp);
-//   }
-
-//   componentWillUnmount(): void {
-//     document.removeEventListener('keyup', this.handleKeyUp);
-//   }
-
-//   render(): React.ReactNode {
-//     const { pressedKey } = this.state;
-
-//     return (
-//       <div className="App">
-//         <p className="App__message">{pressedKey}</p>
-//       </div>
-//     );
-//   }
-// }
-
-type State = {
+interface State {
   pressedKey: string;
-};
+}
 
-export class App extends React.Component {
-  state: State = {
-    pressedKey: '',
+export class App extends React.Component<{}, State> {
+  state: Readonly<State> = {
+    pressedKey: 'Nothing was pressed yet',
+  };
+
+  handleKeyUp = (event: KeyboardEvent) => {
+    this.setState({ pressedKey: `The last pressed key is [${event.key}]` });
   };
 
   componentDidMount(): void {
-    document.addEventListener('keyup', this.handleClick);
+    document.addEventListener('keyup', this.handleKeyUp);
   }
 
   componentWillUnmount(): void {
-    document.removeEventListener('keyup', this.handleClick);
+    document.removeEventListener('keyup', this.handleKeyUp);
   }
 
-  handleClick = (event: KeyboardEvent) => {
-    this.setState({ pressedKey: event.key });
-  };
-
-  render() {
+  render(): React.ReactNode {
     const { pressedKey } = this.state;
 
     return (
       <div className="App">
-        <p className="App__message">
-          {pressedKey
-            ? `The last pressed key is [${pressedKey}]`
-            : 'Nothing was pressed yet'}
-        </p>
+        <p className="App__message">{pressedKey}</p>
       </div>
     );
   }
